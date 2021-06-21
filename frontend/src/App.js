@@ -39,7 +39,7 @@ function App() {
             <h4 className="place">Memorial Center</h4>
             <label>Review</label>
             <p>Beautiful Place. I like it.</p>
-            <label>Rating1</label>
+            <label>Rating12</label>
             <div className="stars">
               <Star />
               <Star />
