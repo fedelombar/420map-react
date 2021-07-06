@@ -3,9 +3,11 @@ import "./app.css";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import { Room, Star } from "@material-ui/icons";
 import axios from "axios";
+import { format } from "timeago.js";
 
 function App() {
   const [pins, setPins] = useState([]);
+  const [currentPlaceId, setCurrentPlaceId] = useState(null);
   const [viewport, setViewport] = useState({
     width: "100vw",
     height: "100vh",
@@ -17,7 +19,7 @@ function App() {
   useEffect(() => {
     const getPins = async () => {
       try {
-        const res = await axios.get("/pins");
+        const res = await axios.get("pins");
         setPins(res.data);
       } catch (err) {
         console.log(err);
@@ -25,6 +27,10 @@ function App() {
     };
     getPins();
   }, []);
+
+  const handleMarkerClick = (id) => {
+    setCurrentPlaceId(id);
+  };
 
   return (
     <div className="App">
@@ -43,37 +49,45 @@ function App() {
               offsetTop={-10}
             >
               <Room
-                style={{ fontSize: viewport.zoom * 7, color: "slateblue" }}
+                style={{
+                  fontSize: viewport.zoom * 7,
+                  color: "slateblue",
+                  cursor: "pointer",
+                }}
+                onClick={() => handleMarkerClick(p._id)}
               />
             </Marker>
-            {/* <Popup
-          latitude={40.7127}
-          longitude={-74.0134}
-          closeButton={true}
-          closeOnClick={false}
-          anchor="left"
-        >
-          <div className="card">
-            <label>Place</label>
-            <h4 className="place">Memorial Center</h4>
-            <label>Review</label>
-            <p className="desc">Beautiful Place. I like it.</p>
-            <label>Rating12</label>
-            <div className="stars">
-              <Star className="star" />
-              <Star className="star" />
-              <Star className="star" />
-              <Star className="star" />
-              <Star className="star" />
-            </div>
+            {p._id === currentPlaceId && (
+              <Popup
+                latitude={p.lat}
+                longitude={p.long}
+                closeButton={true}
+                closeOnClick={false}
+                anchor="left"
+                onClose={() => setCurrentPlaceId(null)}
+              >
+                <div className="card">
+                  <label>Place</label>
+                  <h4 className="place">{p.title}</h4>
+                  <label>Review</label>
+                  <p className="desc">{p.desc}</p>
+                  <label>Rating12</label>
+                  <div className="stars">
+                    <Star className="star" />
+                    <Star className="star" />
+                    <Star className="star" />
+                    <Star className="star" />
+                    <Star className="star" />
+                  </div>
 
-            <label>Information</label>
-            <span className="username">
-              Created by <b>safak</b>
-            </span>
-            <span className="date"> 1 hour ago</span>
-          </div>
-        </Popup> */}
+                  <label>Information</label>
+                  <span className="username">
+                    Created by <b>{p.username}</b>
+                  </span>
+                  <span className="date">{format(p.createdAt)}</span>
+                </div>
+              </Popup>
+            )}
           </>
         ))}
       </ReactMapGL>
