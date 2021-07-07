@@ -6,6 +6,7 @@ import axios from "axios";
 import { format } from "timeago.js";
 
 function App() {
+  const currentUser = "john"; // testing
   const [pins, setPins] = useState([]);
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
   const [viewport, setViewport] = useState({
