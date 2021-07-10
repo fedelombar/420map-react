@@ -6,7 +6,7 @@ import axios from "axios";
 import { format } from "timeago.js";
 
 function App() {
-  const currentUser = "john"; // testing
+  const currentUser = "serpico"; // testing
   const [pins, setPins] = useState([]);
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
   const [viewport, setViewport] = useState({
@@ -52,7 +52,7 @@ function App() {
               <Room
                 style={{
                   fontSize: viewport.zoom * 7,
-                  color: "slateblue",
+                  color: p.username === currentUser ? "tomato" : "slateblue",
                   cursor: "pointer",
                 }}
                 onClick={() => handleMarkerClick(p._id)}
@@ -82,6 +82,7 @@ function App() {
                   </div>
 
                   <label>Information</label>
+
                   <span className="username">
                     Created by <b>{p.username}</b>
                   </span>
