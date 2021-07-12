@@ -4,9 +4,10 @@ import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import { Room, Star } from "@material-ui/icons";
 import axios from "axios";
 import { format } from "timeago.js";
+import Register from "./components/Register";
 
 function App() {
-  const currentUser = "safak"; // testing
+  const [currentUser, setCurrentUser] = useState(null);
   const [pins, setPins] = useState([]);
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
   const [title, setTitle] = useState(null);
@@ -158,9 +159,15 @@ function App() {
             </div>
           </Popup>
         )}
-        <button className="button logout">Log out</button>
-        <button className="button login">Login</button>
-        <button className="button register">Register</button>
+        {currentUser ? (
+          <button className="button logout">Log out</button>
+        ) : (
+          <div className="buttons">
+            <button className="button login">Login</button>
+            <button className="button register">Register</button>
+          </div>
+        )}
+        <Register />
       </ReactMapGL>
     </div>
   );
