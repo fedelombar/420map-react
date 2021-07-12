@@ -6,7 +6,7 @@ import axios from "axios";
 import { format } from "timeago.js";
 
 function App() {
-  const currentUser = "serpico"; // testing
+  const currentUser = "safak"; // testing
   const [pins, setPins] = useState([]);
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
   const [title, setTitle] = useState(null);
@@ -81,8 +81,8 @@ function App() {
             <Marker
               latitude={p.lat}
               longitude={p.long}
-              offsetLeft={-20}
-              offsetTop={-10}
+              offsetLeft={-viewport.zoom * 3.5}
+              offsetTop={-viewport.zoom * 7}
             >
               <Room
                 style={{
@@ -158,6 +158,9 @@ function App() {
             </div>
           </Popup>
         )}
+        <button className="button logout">Log out</button>
+        <button className="button login">Login</button>
+        <button className="button register">Register</button>
       </ReactMapGL>
     </div>
   );
