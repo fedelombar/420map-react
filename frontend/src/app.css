@@ -67,10 +67,12 @@ input::placeholder, textarea::placeholder{
 
 .logout{
     background-color: tomato;
+
 }
 
 .login{
     background-color: teal;
+    margin-right: 10px;
 }
 
 .register{
