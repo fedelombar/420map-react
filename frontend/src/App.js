@@ -182,7 +182,7 @@ function App() {
               className="button register"
               onClick={() => setShowRegister(true)}
             >
-              Register
+              Register Now
             </button>
           </div>
         )}
